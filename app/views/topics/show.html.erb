@@ -1,0 +1,42 @@
+<div class="two-col">
+  <div class="content">
+    <div class="header-bar">
+      <h2><%= @topic.name %></h2>
+      <a href="#create-post-popup" class="button-primary" data-turbo="false">New Post</a>
+    </div>
+    <ul>
+    <% @posts.each do |post| %>
+      <div class="topic-post">
+        <div class="post-header">
+          <small><%= post.user.name %> on <%= post.created_at.strftime("%B %d, %Y at %I:%M %p") %></small>
+          <% if policy(post).destroy? %>
+          <%= link_to image_tag('trash.svg'), [@topic, post], data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure you want to delete this post?"
+              } %>
+          <% end %>
+        </div>
+        <li>
+          <%= post.content %>
+        </li>
+      </div>
+    <% end %>
+    </ul>
+  </div>
+  <div class="sidebar">
+    <%= render "application/sidebar" %>
+  </div>
+</div>
+<div id="create-post-popup" class="popup">
+  <a href="#" class="popup-close" data-turbo="false">&times;</a>
+  <h2>Create Post</h2>
+  <%= form_with(model: [@topic, @topic.posts.build]) do |form| %>
+    <div class="form-group">
+      <%= form.rich_text_area :content %>
+    </div>
+    <%= form.hidden_field :topic_id, value: @topic.id %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.submit 'Create Post', class: 'button-primary' %>
+  <% end %>
+</div>
+<div class="overlay"></div>

@@ -1,0 +1,6 @@
+<h1><%= @forum.name %></h1>
+<ul>
+<% @forum.topics.each do |topic| %>
+  <li><%= link_to topic.name, topic_path(topic) %></li>
+<% end %>
+</ul>

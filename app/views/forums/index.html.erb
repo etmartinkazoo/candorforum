@@ -1,0 +1,13 @@
+<div class="two-col">
+  <div class="col-one">
+    <ul>
+    <% @forums.each do |forum| %>
+      <li><h2><%= link_to forum.name, forum_path(forum) %></h2></li>
+    <% end %>
+    </ul>
+    <%= paginate @forums %>
+  </div>
+  <div class="col-two">
+    Sidebar content here
+  </div>
+</div>
