@@ -17,7 +17,7 @@ puts "Creating new users..."
   puts "Created user #{i+1}: #{user.email}"
 end
 
-User.create(name: 'Ted Martin', email: 'ted@brem.io', password: 'powder84')
+User.create(name: 'Ted Martin', email: 'test@email.com', password: 'password')
 
 # Create new forums
 puts "Creating new forums..."
